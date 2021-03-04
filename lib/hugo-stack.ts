@@ -54,7 +54,8 @@ export class HugoStack extends cdk.Stack {
       bucketName: idPrefix.toLowerCase() + 's3bucket'
     })
 
-
+    
+    
     // create Route53 Hosted Zone or if supplied, get the existing hostedZone
     let myHostedZone;
 
@@ -67,7 +68,6 @@ export class HugoStack extends cdk.Stack {
       myHostedZone = new route53.PublicHostedZone(this, idPrefix + 'HostedZone', {
         zoneName: domain
       })
-
     }
 
     // new certificate for this zone
@@ -111,6 +111,11 @@ export class HugoStack extends cdk.Stack {
       target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(myDistribution))
     });
 
+    new cdk.CfnOutput(this, "bucket", {"value" : myBucket.bucketName});
+    new cdk.CfnOutput(this, "distro", {"value" :  myDistribution.distributionId});
+    new cdk.CfnOutput(this, "certificate",  {"value" : myCert.certificateArn});
+    new cdk.CfnOutput(this, "function",  {"value" : myFunc.edgeArn});
+    new cdk.CfnOutput(this, "function version", {"value" : myFunc.currentVersion.version});
 
   }
 }
