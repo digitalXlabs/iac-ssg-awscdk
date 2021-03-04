@@ -1,0 +1,9 @@
+{
+  "app": "npx ts-node --prefer-ts-exts bin/ssg-template.ts",
+  "context": {
+    "ownerName": "ExampleOwner",
+    "ownerClientId": "ExampleClientId",
+    "domainName": "example.com",
+    "isProd": false
+  }
+}
