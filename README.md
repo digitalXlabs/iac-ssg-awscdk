@@ -1,4 +1,4 @@
-# AWS CDK Project for Hugo Static Site Generator (SSG) Infrastructure
+# Hugo Static Site Generator Deploy IaC using AWS CDK
 
 Hello and welcome, thanks for dropping by. We built this project to demonstrate how you can automate building out the infrastructure required on AWS to serve a site built using the Hugo static site generator.
 
