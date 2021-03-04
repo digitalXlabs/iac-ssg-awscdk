@@ -91,9 +91,9 @@ Some of the nicities are not included currently, like setting up the error docs 
 
 ## Setting up local environment
 
-1. export AWS_Profile=<yourprofile>
-2. export CDK_DEFAULT_ACCOUNT=<youraccount> 
-3. export CDK_DEFAULT_REGION=<yourdefaultregion>
+1. `export AWS_Profile=<yourprofile>`
+2. `export CDK_DEFAULT_ACCOUNT=<youraccount> `
+3. `export CDK_DEFAULT_REGION=<yourdefaultregion>`
 
 ## Deploying
 6. Check that your template with synthesize by either
