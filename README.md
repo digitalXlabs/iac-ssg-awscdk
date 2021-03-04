@@ -26,7 +26,7 @@ and the deploy command?
 
 That's bloody it!
 
-## Prerequisites & caveats
+## Prerequisites 
 
 To use this software you need a couple of things in place before you start
 
@@ -36,8 +36,11 @@ To use this software you need a couple of things in place before you start
 4. The CDK_DEFAULT_ACCOUNT and CDK_DEFAULT_REGION environment variables set
 5. A Hosted Zone set up for your root domain on AWS Route 53
 6. Node version >=12.x
-7. AWS CDK installed `npm install -g aws-cdk`
+7. AWS CDK needs to be installed `npm install -g aws-cdk`
    
+## Caveats
+
+1. This code won't deploy your hugo site for you, only the infrastructure
 ## What is it all about?
 This project uses the [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) to create a cloudformation template that will deploy all the necessary resources that you need to host  a [Hugo](https://gohugo.io) Generated Static Site.
 
