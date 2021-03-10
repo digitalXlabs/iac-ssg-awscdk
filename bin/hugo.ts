@@ -22,8 +22,8 @@ const description = `SSG Stack for ${client}`
 const cs = new HugoStack(app, 'HugoStack', {
   stackName: stackName,
   env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION
+    account: app.node.tryGetContext('account') || process.env.CDK_DEFAULT_ACCOUNT,
+    region: app.node.tryGetContext('region') || process.env.CDK_DEFAULT_REGION
   },
    description: description,
    owner: client,

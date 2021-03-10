@@ -98,14 +98,47 @@ Some of the niceties are not included currently, like setting up the error docs 
 2. `export CDK_DEFAULT_ACCOUNT=<youraccount> `
 3. `export CDK_DEFAULT_REGION=<yourdefaultregion>`
 
-## Deploying
-6. Check your template using one of these two methods:
-   1. Make adjustments in the cdk.json file, entering the values you need for 'ownnerName', 'ownerClientId' and 'domainName' or 
-   2. Issue command `cdk synth --context domainName=<fully.qualified.domain.name> --context ownerClientId=<clientid> --context ownerName='<your client name' YourClientNameHugoStack -e` (replace the values between the <>)
-7. If you have never used the CDK in your AWS account, you will need to [bootstrap](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html) it by running the command `cdk bootstrap aws://ACCOUNT-NUMBER-1/REGION-1 aws://ACCOUNT-NUMBER-2/REGION-2 ...`
-8. If you have no errors, you can issue the deploy command `cdk deploy --context domainName=<fully.qualified.domain.name> --context ownerClientId=<clientid> --context ownerName='<your client name>' --all`
-9.  Add the additional context `--context prod=true` if you're deploying to a production environment. This will create Route53  domains example.com, www.example.com and prod.example.com  as alternate names for the CloudFront distribution. It will also add example.com and *.example.com to your certificate
 
+## Bootstrap CDK
+
+If you have never used the CDK in your AWS account, you will need to [bootstrap](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html) it, which means you provision the initial resources needed to perform deployment. Do this by running the command:
+
+   `cdk bootstrap aws://ACCOUNT-NUMBER-1/REGION-1 aws://ACCOUNT-NUMBER-2/REGION-2`
+
+You will need to bootstrap AWS region us-east-1 to hold the lambdaEdge function included with the package, if you are using a different region for your main package, then also add this to the command.
+
+Bootstrapping will create a Cloudformation template called CDKToolkit in each of the regions that you've stated should be bootstrapped. It will also create S3 buckets in each of the regions specified to store the assets needed for the CDK to work.
+
+Once finished, if all goes well, you will see 
+
+`Environment aws://ACCOUNT-NUMBER-1/REGION-1 bootstrapped.`
+
+`Environment aws://ACCOUNT-NUMBER-1/REGION-2 bootstrapped.`
+
+## Deploy using `cdk.json`
+
+1. Make adjustments in the cdk.json file, entering the values you need for 'ownerName', 'ownerClientId', 'domainName' and 'account' and the 'isProd' flag
+2. Run the command `cdk ls` which will show you the two stacks that will be built and deployed, one for the lambda edge function and one for the main stack
+3. Run `cdk deploy --all` to deploy all the stacks. 
+4. You will be asked to confirm deployment for two stacks, answer `y` in both cases
+5. The initial deployment can take up to 15 minutes to deploy
+
+
+## Deploy using command line context parameters
+
+1. Run the deploy command and add the context values to the command `cdk deploy --context domainName=<fully.qualified.domain.name> --context ownerClientId=<clientid> --context ownerName='<your client name>' --context account<yourawsaccountnumber>  --all`
+2. Add the additional context `--context prod=true` if you're deploying to a production environment. This will create Route53  domains example.com, www.example.com and prod.example.com  as alternate names for the CloudFront distribution. It will also add example.com and *.example.com to your certificate
+
+## Destroying the stacks
+To destroy the stacks
+1. if you used the cdk.json method, run cdk destroy
+2. If you used the command line context `cdk destroy --context domainName=<fully.qualified.domain.name> --context ownerClientId=<clientid> --context ownerName='<your client name>' --context account<yourawsaccountnumber>  --all`
+
+** NB it is possible if the lambdaEdge function has propogated, you will get an error stating the CDK is unable to delete your stack because the LambdaEdge functio is a replicated function. If this happens you will need to delete the stack from the console, excluding the lambda edge function which may take a few hours before it is able to be deleted
+
+
+# Wrapping up
+You have completed your first CDK enabled Cloudformation template and AWS resources. Clicking through the AWS management console, you will see that it has created the following resources for you.
 
 ## Useful commands
 

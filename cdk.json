@@ -4,6 +4,7 @@
     "ownerName": "ExampleOwner",
     "ownerClientId": "ExampleClientId",
     "domainName": "example.com",
-    "isProd": false
+    "account": 123456789,
+    "prod": false
   }
 }
