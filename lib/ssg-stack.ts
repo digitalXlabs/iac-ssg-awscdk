@@ -16,7 +16,8 @@ interface StackProps extends cdk.StackProps {
   fqdn?: string;
 
 }
-export class HugoStack extends cdk.Stack {
+
+export class SSGStack extends cdk.Stack {
 
 
   constructor(scope: cdk.Construct, id: string, props?: StackProps) {
@@ -24,7 +25,7 @@ export class HugoStack extends cdk.Stack {
 
 
 
-    const idPrefix = props?.stackPrefix || 'HugoStack';
+    const idPrefix = props?.stackPrefix || 'SSGStack';
 
     // the domain that we are going to work with
     const tld = props?.fqdn!;

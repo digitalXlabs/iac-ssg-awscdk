@@ -1,6 +1,6 @@
-# Hugo Static Site Generator Deploy IaC using AWS CDK
+# SSG Static Site Generator Deploy IaC using AWS CDK
 
-Hello, and welcome. Thanks for dropping by. We built this project to demonstrate how you can automate building out the infrastructure required on AWS to serve a site built using the Hugo static site generator.
+Hello, and welcome. Thanks for dropping by. We built this project to demonstrate how you can automate building out the infrastructure required on AWS to serve a site built using the SSG static site generator.
 
 As a consultancy, we often deploy sites that don't require complicated CMS's using a static site generator. There are many service operators such as forestry.io or Netlify, which you can use to deploy your sites and infrastructure. There are also applications available in the AWS marketplace that will deploy with the push of a button. However, as developers, we always need to understand the underlying code. We need to know what's going on.
 
@@ -40,10 +40,10 @@ To use this software, you need a couple of things in place before you begin.
    
 ## Caveats
 
-1. This code won't deploy your Hugo site for you, only the infrastructure
+1. This code won't deploy your SSG site for you, only the infrastructure
 
 ## What is it all about?
-This project uses the [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) to create a cloud formation template that will deploy all the necessary resources that you need to host a [Hugo](https://gohugo.io) Generated Static Site.
+This project uses the [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) to create a cloud formation template that will deploy all the necessary resources that you need to host a [SSG](https://goSSG.io) Generated Static Site.
 
 Using the CDK, we will deploy our infrastructure as code, and the following resources will be created.
 
@@ -77,10 +77,10 @@ The necessary A records that point to your CloudFront distribution
 
 ### S3 Bucket
 
-The bucket used to store the Hugo generated static files and assets.
+The bucket used to store the SSG generated static files and assets.
 
 ### Cloudfront Distribution, Origins and Behaviours
-The CloudFront distribution and the requisite origins and behaviours you need to serve your Hugo generated a static website from a cloud distribution network.
+The CloudFront distribution and the requisite origins and behaviours you need to serve your SSG generated a static website from a cloud distribution network.
 
 **CAVEAT**
 
