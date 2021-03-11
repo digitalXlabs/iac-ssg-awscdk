@@ -138,7 +138,7 @@ To destroy the stacks
 
 
 # Wrapping up
-You have completed your first CDK enabled Cloudformation template and AWS resources. Clicking through the AWS management console, you will see that it has created the following resources for you.
+You have completed your first CDK enabled Cloudformation template and AWS resources. Clicking through the AWS management console, you will see that it has created the resources for you. You can now upload your static generated site to the s3 buket and visit the url that was created in the route53 hosted zone and see your site, knowing also that it will be speedy and served by Cloudfront, the AWS content distribution network.
 
 ## Useful commands
 
