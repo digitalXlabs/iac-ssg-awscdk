@@ -40,9 +40,11 @@ export class SSGStack extends cdk.Stack {
     }
 
 
-
     // Creating a S3 bucket that will store the HTML and assets of the SSG site
     //  when it's resdy to be deployed
+
+    // check origins depending on prod flag
+    const allowedOrigins = props?.isProd ? ['prod.' + tld, 'www.' + tld,  tld] : ['stage.' + tld]
     const myBucket = new s3.Bucket(this, idPrefix.toLowerCase() + 's3bucket', {
       // we will keep versions of our objects 
       versioned: true,
@@ -52,9 +54,14 @@ export class SSGStack extends cdk.Stack {
       // we want the objects to be removed when the stack is destroyed
       autoDeleteObjects: true,
       // give it a name
-      bucketName: idPrefix.toLowerCase() + 's3bucket'
+      bucketName: idPrefix.toLowerCase() + 's3bucket',
+      enforceSSL: true,
     })
-
+    // add cprsreule
+    myBucket.addCorsRule({
+      allowedOrigins: allowedOrigins,
+      allowedMethods: [s3.HttpMethods.GET],
+    })
     
     
     // create Route53 Hosted Zone or if supplied, get the existing hostedZone

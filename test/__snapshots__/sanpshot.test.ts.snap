@@ -565,6 +565,18 @@ Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "BucketName": "examplestacks3bucket",
+        "CorsConfiguration": Object {
+          "CorsRules": Array [
+            Object {
+              "AllowedMethods": Array [
+                "GET",
+              ],
+              "AllowedOrigins": Array [
+                "stage.example.com",
+              ],
+            },
+          ],
+        },
         "VersioningConfiguration": Object {
           "Status": "Enabled",
         },
@@ -598,6 +610,38 @@ Object {
         },
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": "s3:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "examplestacks3bucket5F48481E",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "examplestacks3bucket5F48481E",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
             Object {
               "Action": Array [
                 "s3:GetBucket*",
@@ -1258,6 +1302,20 @@ Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "BucketName": "examplestackproductions3bucket",
+        "CorsConfiguration": Object {
+          "CorsRules": Array [
+            Object {
+              "AllowedMethods": Array [
+                "GET",
+              ],
+              "AllowedOrigins": Array [
+                "prod.example.com",
+                "www.example.com",
+                "example.com",
+              ],
+            },
+          ],
+        },
         "VersioningConfiguration": Object {
           "Status": "Enabled",
         },
@@ -1272,6 +1330,38 @@ Object {
         },
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": "s3:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "examplestackproductions3bucketE722C2DB",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "examplestackproductions3bucketE722C2DB",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
             Object {
               "Action": Array [
                 "s3:GetBucket*",
