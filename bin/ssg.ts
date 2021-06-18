@@ -15,22 +15,30 @@ const app = new cdk.App();
 const client = app.node.tryGetContext('ownerName')
 const clientId = app.node.tryGetContext('ownerClientId')
 const domainName = app.node.tryGetContext('domainName'); // 
-const stackName = `${_s.camelCaseUpper(client)}SSGStack`
+const isProduction = (): boolean => {
+  return app.node.tryGetContext('prod') || false
+}
+
+console.log('am I prod', isProduction())
+
+// const stackName = `${_s.camelCaseUpper(client)}SSGStack`
+const stackName = `${_s.camelCaseUpper(client)}` + (isProduction() ? `Production` : '') + `SSGStack`
 const description = `SSG Stack for ${client}`
 
+
 // new stack now, the regions if not set as environment variables will 
-const cs = new SSGStack(app, 'SSGStack', {
+const cs = new SSGStack(app, stackName, {
   stackName: stackName,
   env: {
     account: app.node.tryGetContext('account') || process.env.CDK_DEFAULT_ACCOUNT,
     region: app.node.tryGetContext('region') || process.env.CDK_DEFAULT_REGION
   },
-   description: description,
-   owner: client,
-   ownerId: clientId,
-   stackPrefix: stackName,
-   fqdn: domainName,
-   isProd: app.node.tryGetContext('prod') || false
+  description: isProduction() ? `Production ${description}` : description,
+  owner: client,
+  ownerId: clientId,
+  stackPrefix: stackName,
+  fqdn: domainName,
+  isProd: isProduction()
 });
 
 // Add a tag to all constructs in the stack
