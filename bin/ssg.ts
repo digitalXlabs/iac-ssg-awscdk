@@ -19,8 +19,6 @@ const isProduction = (): boolean => {
   return app.node.tryGetContext('prod') || false
 }
 
-console.log('am I prod', isProduction())
-
 // const stackName = `${_s.camelCaseUpper(client)}SSGStack`
 const stackName = `${_s.camelCaseUpper(client)}` + (isProduction() ? `Production` : '') + `SSGStack`
 const description = `SSG Stack for ${client}`
