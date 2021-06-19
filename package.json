@@ -1,7 +1,7 @@
 {
   "name": "iac-ssg-awscdk",
   "description": "Package to help you deploy AWS CDK cloudformation template IaC for a static site generator",
-  "version": "1.2.2",
+  "version": "1.2.0",
   "bin": {
     "SSG": "bin/ssg.js"
   },
