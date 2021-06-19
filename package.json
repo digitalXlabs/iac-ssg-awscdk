@@ -5,6 +5,7 @@
   "bin": {
     "SSG": "bin/ssg.js"
   },
+  "private": true,
   "author": {
     "name": "Morlene Fisher",
     "email": "digital@ashleylawrence.com",
