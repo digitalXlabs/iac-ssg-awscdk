@@ -11,7 +11,7 @@ import * as  s3deploy from '@aws-cdk/aws-s3-deployment';
 import { IHostedZone, IRecordSet } from '@aws-cdk/aws-route53';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { IBucket } from '@aws-cdk/aws-s3';
-import { IDistribution } from '@aws-cdk/aws-cloudfront';
+import { ErrorResponse, IDistribution } from '@aws-cdk/aws-cloudfront';
 interface StackProps extends cdk.StackProps {
   stackPrefix: string;
   isProd?: boolean;
@@ -31,7 +31,7 @@ export class SSGStack extends cdk.Stack {
   idPrefix: string;
   isProd: boolean;
 
-  
+
   constructor(scope: cdk.Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -47,22 +47,23 @@ export class SSGStack extends cdk.Stack {
     if (!this.domainApex) {
       throw new Error('We need a FQDN to proceed, please add a context property `domainName`')
     }
+  }
+
+  run() {
 
     // this is the sub-domain we will be using for the SSG site
     const subDomains = this.makeSubDomains();
-
-    // create allow origins for cors rule on s3 bucket
-    const allowedOrigins = subDomains.map(ele => ele.recordName ? `${ele.recordName}.${this.domainApex}` : this.domainApex)
-
-    // Create the S3 bucket that will store the HTML and assets of the SSG site
-    const myBucket = this.makeBucket(allowedOrigins);
 
     // retrieves an existing zone based on the domainApex
     const myHostedZone = this.getHostedZone();
     if (!myHostedZone) {
       throw new Error(`There is no hosted zone for this domain ${this.domainApex}`);
     }
+    // create allow origins for cors rule on s3 bucket
+    const allowedOrigins = subDomains.map(ele => ele.recordName ? `${ele.recordName}.${this.domainApex}` : this.domainApex)
 
+    // Create the S3 bucket that will store the HTML and assets of the SSG site
+    const myBucket = this.makeBucket(allowedOrigins);
     // // new certificate for this zone
     const myCert = this.makeCertificate(subDomains, myHostedZone)
 
@@ -135,10 +136,11 @@ export class SSGStack extends cdk.Stack {
    * 
    * @returns 
    */
-  getHostedZone(): IHostedZone {
+  getHostedZone(): IHostedZone  {
     return route53.HostedZone.fromLookup(this, this.idPrefix + 'HostedZone', {
       domainName: this.domainApex
     });
+
   }
 
   /**
@@ -259,7 +261,7 @@ export class SSGStack extends cdk.Stack {
             zone: hostedZone,
             comment: 'this is the nth cname',
             recordName: `${ele.recordName}.${this.domainApex}`,
-            target:  route53.RecordTarget.fromValues(this.domainApex)
+            target: route53.RecordTarget.fromValues(this.domainApex)
 
           })
       }
@@ -275,7 +277,7 @@ export class SSGStack extends cdk.Stack {
   makeDeployment(bucket: IBucket, distribution: IDistribution) {
     // Deploy site contents to S3 bucket
     new s3deploy.BucketDeployment(this, 'DeployWithInvalidation', {
-      sources: [ s3deploy.Source.asset('./src/defaultSite') ],
+      sources: [s3deploy.Source.asset('./src/defaultSite')],
       destinationBucket: bucket,
       distribution,
       distributionPaths: ['/*'],

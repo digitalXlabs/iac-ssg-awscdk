@@ -43,4 +43,14 @@ const cs = new SSGStack(app, stackName, {
 cdk.Tags.of(cs).add('ash:owner:name', client);
 cdk.Tags.of(cs).add('ash:owner:client:id', clientId);
 
+
+try {
+  cs.run();
+}
+
+catch(err){
+  console.log('We got errors')
+  console.error(err)
+}
 app.synth();
+
