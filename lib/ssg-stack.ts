@@ -245,7 +245,6 @@ export class SSGStack extends cdk.Stack {
 
       switch (ele.recordType) {
         case route53.RecordType.A:
-          // console.log('makeRecordSets getting recordnameback', this._getDomain(ele))
           return new route53.RecordSet(this, this.idPrefix + 'Route53ARecordFromDistribution', {
             recordType: route53.RecordType.A,
             zone: hostedZone,
@@ -265,9 +264,7 @@ export class SSGStack extends cdk.Stack {
       }
     })
 
-    // console.log(processed)
     for (let i = 0; i < completed.length; i++) {
-      // console.log("CFNOUTPUT", completed[i].domainName)
       new cdk.CfnOutput(this, "Route53 domains" + i, { "value": completed[i].domainName });
     }
   }

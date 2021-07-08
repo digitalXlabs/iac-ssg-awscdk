@@ -2,9 +2,10 @@
   "app": "npx ts-node --prefer-ts-exts bin/ssg.ts",
   "context": {
     "ownerName": "ExampleOwner",
-    "ownerClientId": "ExampleClientId",
+    "ownerClientId": "FA-ExampleOwner",
+    "ownerBrandProperty": "ExampleOwner Acme",
     "domainName": "example.com",
-    "account": "123456789",
+    "account": "1234567890",
     "prod": false
   }
 }

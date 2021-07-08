@@ -36,11 +36,13 @@
     "@aws-cdk/aws-certificatemanager": "^1.107.0",
     "@aws-cdk/aws-cloudfront": "^1.107.0",
     "@aws-cdk/aws-cloudfront-origins": "^1.107.0",
+    "@aws-cdk/aws-dynamodb": "^1.111.0",
     "@aws-cdk/aws-lambda": "^1.107.0",
     "@aws-cdk/aws-route53": "^1.107.0",
     "@aws-cdk/aws-route53-targets": "^1.107.0",
     "@aws-cdk/aws-s3": "^1.107.0",
     "@aws-cdk/aws-s3-deployment": "^1.109.0",
+    "@aws-cdk/aws-ses": "^1.111.0",
     "@aws-cdk/core": "^1.107.0",
     "source-map-support": "^0.5.19"
   }
